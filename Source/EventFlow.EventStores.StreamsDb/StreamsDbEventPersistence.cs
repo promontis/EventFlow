@@ -47,8 +47,9 @@ namespace EventFlow.EventStores.StreamsDb
 			do
 			{
 				currentSlice = await _client.DB().ReadGlobalForward(from, pageSize).ConfigureAwait(false);
+				
 				from = currentSlice.Next;
-				streamsDbMessages.AddRange(currentSlice.Messages);
+				streamsDbMessages.AddRange(currentSlice.Messages.Where(m => !m.Stream.StartsWith("#")));
 			}
 			while (streamsDbMessages.Count < pageSize && currentSlice.HasNext);
 
