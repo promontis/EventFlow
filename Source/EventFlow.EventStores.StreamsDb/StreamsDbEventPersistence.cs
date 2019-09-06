@@ -18,6 +18,7 @@ namespace EventFlow.EventStores.StreamsDb
 		
 		private readonly ILog _log;
 		private readonly StreamsDBClient _client;
+		private readonly DB _db;
 
 		private class EventFlowEvent : ICommittedDomainEvent
 		{
@@ -31,6 +32,7 @@ namespace EventFlow.EventStores.StreamsDb
 		{
 			_log = log;
 			_client = client;
+			_db = _client.DB();
 		}
 
 		public async Task<AllCommittedEventsPage> LoadAllCommittedEvents(GlobalPosition globalPosition, int pageSize, CancellationToken cancellationToken)
@@ -89,7 +91,7 @@ namespace EventFlow.EventStores.StreamsDb
 
 			try
 			{
-				await _client.DB().AppendStream(id.Value, ConcurrencyCheck.ExpectStreamVersion(expectedVersion), streamsDbMessages).ConfigureAwait(false);
+				await _db.AppendStream(id.Value, ConcurrencyCheck.ExpectStreamVersion(expectedVersion), streamsDbMessages).ConfigureAwait(false);
 			}
 			catch (OperationCanceledException e)
 			{
