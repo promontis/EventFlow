@@ -38,7 +38,7 @@ namespace EventFlow.EventStores.StreamsDb
 			IGlobalSlice currentSlice;
 			var from = globalPosition.IsStart
 				? StreamsDB.Driver.GlobalPosition.Begin
-				: StreamsDB.Driver.GlobalPosition.Begin.Parse(globalPosition.Value);
+				: StreamsDB.Driver.GlobalPosition.Parse(globalPosition.Value);
 
 			do
 			{
