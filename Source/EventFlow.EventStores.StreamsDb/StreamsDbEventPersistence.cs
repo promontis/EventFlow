@@ -94,7 +94,7 @@ namespace EventFlow.EventStores.StreamsDb
 			{
 				await _db.AppendStream(id.Value, ConcurrencyCheck.ExpectStreamVersion(expectedVersion), streamsDbMessages).ConfigureAwait(false);
 			}
-			catch (OperationCanceledException e)
+			catch (OperationAbortedException e)
 			{
 				throw new OptimisticConcurrencyException(e.Message, e);
 			}
