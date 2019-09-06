@@ -14,6 +14,8 @@ namespace EventFlow.EventStores.StreamsDb
 {
 	public class StreamsDbEventPersistence : IEventPersistence
 	{
+		private const int LIMIT = 1000;
+		
 		private readonly ILog _log;
 		private readonly StreamsDBClient _client;
 
@@ -105,7 +107,7 @@ namespace EventFlow.EventStores.StreamsDb
 
 			do
 			{
-                currentSlice = await _client.DB().ReadStreamForward(id.Value, fromEventSequenceNumber, int.MaxValue).ConfigureAwait(false);
+                currentSlice = await _client.DB().ReadStreamForward(id.Value, fromEventSequenceNumber, LIMIT).ConfigureAwait(false);
 				fromEventSequenceNumber = (int)currentSlice.Next;
 				streamEvents.AddRange(currentSlice.Messages);
 			}
