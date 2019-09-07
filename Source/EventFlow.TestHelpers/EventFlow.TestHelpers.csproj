@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="../Common.props" />
   <PropertyGroup>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
@@ -24,6 +23,7 @@
     <NeutralLanguage>en-US</NeutralLanguage>
     <PackageReleaseNotes>UPDATED BY BUILD</PackageReleaseNotes>
     <LangVersion>7.1</LangVersion>
+    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
